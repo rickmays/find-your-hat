@@ -132,18 +132,23 @@ class Field {
       this.print();
       // Prompt the player for their next move and increment/
       // decrement the appropriate row or column of the field
-      move = prompt("Which way? (d)own, (u)p, (l)eft, (r)ight: ");
+      console.log("Move using W A S D keys--w=up, a=left, s=down, d=right ");
+      move = prompt("Which way? ");
       switch (move) {
-        case "d":
-          this.currentRow += 1;
+        // up
+        case "w":
+          this.currentRow += -1;
           break;
-        case "u":
-          this.currentRow -= 1;
-          break;
-        case "l":
+        // left
+        case "a":
           this.currentColumn -= 1;
           break;
-        case "r":
+        // down
+        case "s":
+          this.currentRow += 1;
+          break;
+        // right
+        case "d":
           this.currentColumn += 1;
           break;
         default:
@@ -157,6 +162,7 @@ class Field {
 // Keep playing until player says they don't want to keep playing and
 // allow them to create a new field for each game
 while (!terminate) {
+  console.clear();
   // Instantiate new Field object
   let myField = new Field(Field.generateField());
   // Start the game
