@@ -6,6 +6,8 @@
 // Import prompt-sync library to simplify getting user input
 const prompt = require("prompt-sync")({ sigint: true });
 
+// Set global variable used to terminate the program when player
+// is done playing
 let terminate = false;
 
 // Declare global constants for display characters
@@ -65,8 +67,8 @@ class Field {
   }
 
   checkForGameOver() {
-    // Check if player moves out of bounds and end the game if they
-    // do
+    // Check if player moves out of bounds and check if they want to
+    // play again
     if (
       this.currentRow < 0 ||
       this.currentRow === this.height ||
@@ -81,7 +83,8 @@ class Field {
     }
 
     // Check if player lands on the space containing the "lost" hat,
-    // congratulate them on winning the game, and end the game
+    // congratulate them on winning the game, and check if they want
+    // to play again
     if (this.field[this.currentRow][this.currentColumn] === hat) {
       this.gameOver = true;
       console.clear();
@@ -89,8 +92,8 @@ class Field {
       this.playAgain();
       return;
     }
-    // Check if player lands on a space containing a hole and end
-    // the game if they do
+    // Check if player lands on a space containing a hole and check
+    // if they want to play again
     if (this.field[this.currentRow][this.currentColumn] === hole) {
       this.gameOver = true;
       console.clear();
@@ -151,8 +154,10 @@ class Field {
   }
 }
 
-// Instantiate new Field object
+// Keep playing until player says they don't want to keep playing and
+// allow them to create a new field for each game
 while (!terminate) {
+  // Instantiate new Field object
   let myField = new Field(Field.generateField());
   // Start the game
   myField.play();
